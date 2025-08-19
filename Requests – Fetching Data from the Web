@@ -1,0 +1,10 @@
+import requests
+
+# Get response from an API
+response = requests.get("https://jsonplaceholder.typicode.com/todos/1")
+
+# Convert to JSON
+data = response.json()
+
+print("Data from API:")
+print(data)
