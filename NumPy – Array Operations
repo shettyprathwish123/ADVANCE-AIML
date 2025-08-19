@@ -1,0 +1,12 @@
+import numpy as np
+
+# Create arrays
+a = np.array([1, 2, 3, 4])
+b = np.array([10, 20, 30, 40])
+
+# Operations
+print("Array A:", a)
+print("Array B:", b)
+print("A + B =", a + b)
+print("A * B =", a * b)
+print("Mean of A =", np.mean(a))
