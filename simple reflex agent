@@ -1,0 +1,53 @@
+grid = [
+    ['.', 'T', '.', '#'],
+    ['.', '#', '.', '.'],
+    ['.', '.', 'T', '.'],
+    ['A', '.', '.', '.']
+]
+
+R, C = len(grid), len(grid[0])
+
+# Directions: up, right, down, left
+dirs = [(-1,0),(0,1),(1,0),(0,-1)]
+orientation = 1  # start facing right
+
+def find_agent():
+    for r in range(R):
+        for c in range(C):
+            if grid[r][c]=='A':
+                return r,c
+
+def move(r,c,dr,dc):
+    nr, nc = r+dr, c+dc
+    if 0<=nr<R and 0<=nc<C and grid[nr][nc]!='#':
+        grid[r][c] = '.'
+        grid[nr][nc] = 'A'
+        return nr,nc
+    return r,c
+
+# Run for few steps
+r,c = find_agent()
+for step in range(10):
+    print(f"Step {step+1}")
+    # If on trash, pick it
+    if grid[r][c]=='T':
+        grid[r][c] = 'A'
+        print("Picked trash!")
+    else:
+        moved = False
+        # Check adjacent for trash
+        for dr,dc in dirs:
+            nr,nc = r+dr, c+dc
+            if 0<=nr<R and 0<=nc<C and grid[nr][nc]=='T':
+                r,c = move(r,c,dr,dc)
+                print(f"Moved to trash at ({r},{c})")
+                moved = True
+                break
+        if not moved:  # else move forward
+            dr,dc = dirs[orientation]
+            r,c = move(r,c,dr,dc)
+            print(f"Moved to ({r},{c})")
+    # Print grid
+    for row in grid:
+        print(' '.join(row))
+    print('-'*10)
